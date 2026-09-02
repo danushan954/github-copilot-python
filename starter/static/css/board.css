@@ -1,0 +1,70 @@
+/* The sudoku board grid and cell states (prefilled, incorrect, focus). */
+
+#sudoku-board {
+    display: inline-block;
+    margin: 30px auto;
+    border: 4px solid var(--box-border);
+    background: var(--bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sudoku-row {
+    display: flex;
+}
+
+.sudoku-cell {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--cell-border);
+    text-align: center;
+    font-size: 20px;
+    outline: none;
+    background: var(--cell-bg);
+    color: var(--fg);
+    transition: background 0.2s;
+}
+
+/* Alternate 3x3 BOX shading (not per-cell checkerboard) using data-box,
+   set in board.js. Boxes 0,2,4,6,8 get the alt shade. */
+.sudoku-cell[data-box="0"],
+.sudoku-cell[data-box="2"],
+.sudoku-cell[data-box="4"],
+.sudoku-cell[data-box="6"],
+.sudoku-cell[data-box="8"] {
+    background: var(--cell-alt-bg);
+}
+
+.sudoku-cell:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+/* State colors below MUST come after the box-alternation rules above,
+   since equal-specificity CSS is last-rule-wins — this is what makes
+   prefilled/hinted/incorrect override the alternating box shade instead
+   of the other way around. All theme-aware, no hardcoded hex. */
+.sudoku-cell.prefilled {
+    background: var(--cell-bg);
+    font-weight: bold;
+    color: var(--fg);
+}
+
+.sudoku-cell.hinted {
+    background: var(--hint-bg);
+    color: var(--fg);
+}
+
+.sudoku-cell.incorrect {
+    background: var(--incorrect-bg);
+}
+
+/* Thicker borders on 3x3 box boundaries. */
+.sudoku-cell:nth-child(3),
+.sudoku-cell:nth-child(6) {
+    border-right: 3px solid var(--box-border);
+}
+
+.sudoku-row:nth-child(3) .sudoku-cell,
+.sudoku-row:nth-child(6) .sudoku-cell {
+    border-bottom: 3px solid var(--box-border);
+}

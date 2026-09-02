@@ -1,0 +1,119 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a2e;
+  --cell-bg: #ffffff;
+  --cell-alt-bg: #e7e9f5;
+  --cell-border: #b9c0e0;
+  --box-border: #2545a8;
+  --accent: #2545a8;
+  --hint-bg: #d7ecff;
+  --incorrect-bg: #ffcdd2;
+  --button-bg: #ffffff;
+  --button-fg: #2545a8;
+  --button-border: #2545a8;
+  --hint-btn-bg: #4fd1c5;
+  --hint-btn-fg: #0f3d3a;
+  --table-header-bg: #e7e9f5;
+  --table-row-alt-bg: #f3f5fc;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  text-align: center;
+  margin: 0;
+  padding: 20px 0 60px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: 10px 0 30px;
+}
+
+#theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 8px;
+  font-size: 1.2rem;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+#game-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.side-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 140px;
+  padding-top: 10px;
+}
+
+.side-controls label {
+  text-align: left;
+  font-weight: 600;
+}
+
+button, select {
+  font: inherit;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1.5px solid var(--button-border);
+  background: var(--button-bg);
+  color: var(--button-fg);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+button:hover { transform: translateY(-1px); background: var(--cell-alt-bg); }
+button:active { transform: translateY(0); }
+
+#hint-btn {
+  background: var(--hint-btn-bg);
+  color: var(--hint-btn-fg);
+  border-color: var(--hint-btn-bg);
+}
+
+#status-row {
+  margin: 20px auto;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#message {
+  margin-left: 16px;
+  color: #d32f2f;
+}
+
+#scoreboard {
+  max-width: 700px;
+  margin: 40px auto 0;
+  padding: 0 16px;
+}
+
+#scoreboard h2 {
+  color: var(--accent);
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+table { width: 100%; border-collapse: collapse; }
+thead tr { background: var(--table-header-bg); color: var(--accent); }
+th, td { padding: 10px 8px; }
+tbody tr:nth-child(odd) { background: var(--table-row-alt-bg); }
