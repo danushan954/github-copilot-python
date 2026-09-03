@@ -68,3 +68,8 @@
 .sudoku-row:nth-child(6) .sudoku-cell {
     border-bottom: 3px solid var(--box-border);
 }
+
+.sudoku-cell.conflict {
+    outline: 2px solid #e53935;
+    outline-offset: -2px;
+}

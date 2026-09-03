@@ -46,6 +46,12 @@ function renderScoreboard() {
     const difficulty = document.createElement('td');
     const hints = document.createElement('td');
 
+    rank.dataset.label = 'Rank';
+    name.dataset.label = 'Name';
+    time.dataset.label = 'Time';
+    difficulty.dataset.label = 'Level';
+    hints.dataset.label = 'Hints';
+
     rank.textContent = String(index + 1);
     name.textContent = entry.name || 'Player';
     time.textContent = entry.time || '00:00';

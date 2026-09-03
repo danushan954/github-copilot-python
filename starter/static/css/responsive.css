@@ -2,88 +2,71 @@
 
 /* ---------- Small screens (phones) ---------- */
 @media (max-width: 600px) {
+  h1 { font-size: 1.5rem; }
 
-  h1 {
-    font-size: 1.6rem;
-    margin-top: 16px;
-  }
+  #theme-toggle { position: static; display: block; margin: 0 auto 10px; }
 
-  /* Theme toggle: pull it into the normal flow on mobile instead of a
-     fixed top-right corner, so it doesn't overlap the title on narrow
-     screens. */
-  #theme-toggle {
-    position: static;
-    display: block;
-    margin: 0 auto 12px;
-  }
+  .sudoku-cell { width: 32px; height: 32px; font-size: 15px; }
 
-  /* Shrink cells so the full board fits without horizontal scroll.
-     9 cells * 32px + borders comfortably fits down to ~320px wide screens. */
-  .sudoku-cell {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-
-  #sudoku-board {
-    margin: 16px auto;
-  }
-
-  /* Stack the left/board/right layout vertically on mobile instead of
-     side-by-side columns. */
+  /* True stack: left controls -> board -> right controls, top to bottom. */
   #game-layout {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    width: 100%;
   }
 
-  /* Each side-controls block (difficulty+New Game on the left,
-     Check+Hint on the right) goes full width and lays its buttons out
-     horizontally instead of stacked, since there's only 1-2 items each. */
   .side-controls {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    width: 90%;
-    padding-top: 0;
-  }
-
-  .side-controls label {
     width: 100%;
-    text-align: center;
+    gap: 10px;
   }
 
   .side-controls button,
   .side-controls select {
-    flex: 1 1 auto;
-    max-width: 200px;
+    font-size: 0.9rem;
+    padding: 8px 14px;
   }
 
   #status-row {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin: 16px auto;
+    font-size: 0.95rem;
   }
 
-  #message {
-    margin-left: 0;
-  }
-
-  /* Scoreboard: let the table scroll horizontally rather than squeezing
-     columns unreadably thin. */
-  #scoreboard {
-    width: 94%;
-    margin: 24px auto;
-    overflow-x: auto;
-  }
-
-  #scoreboard table {
+  /* Scoreboard cards avoid horizontal scrolling on small screens. */
+  #scoreboard table,
+  #scoreboard thead,
+  #scoreboard tbody,
+  #scoreboard tr,
+  #scoreboard td {
+    display: block;
     width: 100%;
-    min-width: 480px; /* keeps columns legible; scrolls if needed */
+  }
+
+  #scoreboard thead { display: none; }
+
+  #scoreboard tr {
+    border: 1px solid var(--cell-border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+  }
+
+  #scoreboard td {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
     font-size: 0.9rem;
+  }
+
+  #scoreboard td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--accent);
+    margin-right: 10px;
   }
 }
 
@@ -103,7 +86,7 @@
     margin: 0 auto;
   }
 
-  #scoreboard {
+#scoreboard {
     max-width: 700px;
     margin: 30px auto;
   }

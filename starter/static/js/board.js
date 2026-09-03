@@ -24,6 +24,7 @@ function createBoardElement() {
         const val = e.target.value.replace(/[^1-9]/g, '');
         e.target.value = val;
         e.target.classList.toggle('filled', val !== '');
+        updateConflicts();
       });
       rowDiv.appendChild(input);
     }
@@ -54,6 +55,7 @@ function renderPuzzle(puz) {
       }
     }
   }
+  updateConflicts();
 }
 
 async function newGame() {
@@ -81,6 +83,59 @@ function getCurrentBoard() {
     }
   }
   return board;
+}
+
+function getRowIndices(r) {
+  return Array.from({ length: SIZE }, (_, c) => [r, c]);
+}
+
+function getColIndices(c) {
+  return Array.from({ length: SIZE }, (_, r) => [r, c]);
+}
+
+function getBoxIndices(b) {
+  const boxRow = Math.floor(b / 3) * 3;
+  const boxCol = (b % 3) * 3;
+  const cells = [];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      cells.push([boxRow + i, boxCol + j]);
+    }
+  }
+  return cells;
+}
+
+function markDuplicates(indices, board, conflictSet) {
+  const seen = {};
+  for (const [r, c] of indices) {
+    const val = board[r][c];
+    if (val === 0) continue;
+    (seen[val] = seen[val] || []).push([r, c]);
+  }
+  for (const val in seen) {
+    if (seen[val].length > 1) {
+      for (const [r, c] of seen[val]) {
+        conflictSet.add(r * SIZE + c);
+      }
+    }
+  }
+}
+
+function updateConflicts() {
+  const board = getCurrentBoard();
+  const boardDiv = document.getElementById('sudoku-board');
+  const inputs = boardDiv.getElementsByTagName('input');
+  const conflicts = new Set();
+
+  for (let i = 0; i < SIZE; i++) {
+    markDuplicates(getRowIndices(i), board, conflicts);
+    markDuplicates(getColIndices(i), board, conflicts);
+    markDuplicates(getBoxIndices(i), board, conflicts);
+  }
+
+  for (let idx = 0; idx < inputs.length; idx++) {
+    inputs[idx].classList.toggle('conflict', conflicts.has(idx));
+  }
 }
 
 async function checkSolution() {
